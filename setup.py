@@ -3,6 +3,8 @@ import requests
 from setuptools import setup
 
 def download_model(model_url, model_path):
+    # Create the directory if it doesn't exist
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
     if not os.path.exists(model_path):
         response = requests.get(model_url, stream=True)
         with open(model_path, 'wb') as file:
