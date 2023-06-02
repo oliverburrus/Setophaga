@@ -13,12 +13,12 @@ import pandas as pd
 
 
 class Analyze:
-    def __init__(self, filename):
+    def __init__(self, filename, sound_info=None, frame_rate=None, audio_length=None, prediction=None):
         self.filename = filename
-        self.sound_info = None
-        self.frame_rate = None
-        self.audio_length = None
-        self.prediction = None
+        self.sound_info = sound_info
+        self.frame_rate = frame_rate
+        self.audio_length = audio_length
+        self.prediction = prediction
         self.binary_model = None
         self.warbler_model = None
         self.confidence = 0.7
