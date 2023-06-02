@@ -11,17 +11,16 @@ def download_model(model_url, model_path):
             for chunk in response.iter_content(chunk_size=1024):
                 file.write(chunk)
 
-def load_models():
-    print("Downloading models...")
-    binary_model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
-    binary_model_path = os.path.join('Setophaga', 'models', 'binary.h5')
-    download_model(binary_model_url, binary_model_path)
+# Download models before setup
+print("Downloading models...")
+binary_model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
+binary_model_path = os.path.join('Setophaga', 'models', 'binary.h5')
+download_model(binary_model_url, binary_model_path)
 
-    warbler_model_url = 'https://drive.google.com/uc?export=download&id=1cFwNVpCaMacM9fDv_2qIEOB70XkwKfKs'
-    warbler_model_path = os.path.join('Setophaga', 'models', 'warbler.h5')
-    download_model(warbler_model_url, warbler_model_path)
+warbler_model_url = 'https://drive.google.com/uc?export=download&id=1cFwNVpCaMacM9fDv_2qIEOB70XkwKfKs'
+warbler_model_path = os.path.join('Setophaga', 'models', 'warbler.h5')
+download_model(warbler_model_url, warbler_model_path)
 
-load_models()
 # Define other package details
 setup(
     name='Setophaga',
