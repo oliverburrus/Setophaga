@@ -21,9 +21,6 @@ def load_models():
     warbler_model_path = os.path.join('Setophaga', 'models', 'warbler.h5')
     download_model(warbler_model_url, warbler_model_path)
 
-# Download and load models
-load_models()
-
 # Define other package details
 setup(
     name='Setophaga',
@@ -44,5 +41,8 @@ setup(
         'wave',
         'pylab',
         'pydub'
-    ]
+    ],
+    options={
+        'install': {'post_install': load_models}
+    }
 )
