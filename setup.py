@@ -12,6 +12,7 @@ def download_model(model_url, model_path):
                 file.write(chunk)
 
 def load_models():
+    print("Downloading models...")
     binary_model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
     binary_model_path = os.path.join('Setophaga', 'models', 'binary.h5')
     download_model(binary_model_url, binary_model_path)
