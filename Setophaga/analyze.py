@@ -31,7 +31,8 @@ class Analyze:
         print("Getting models ready...")
         package_path = pkg_resources.resource_filename(__name__, '')
         models_dir = os.path.join(package_path, 'models')
-        if not(os.path.exists('flask_app/binary.h5')):
+        os.makedirs(models_dir, exist_ok=True)
+        if not(os.path.exists(os.path.join(models_dir, 'binary.h5'))):
             model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
             model_path = os.path.join(models_dir, 'binary.h5')
             # Download model file
@@ -41,7 +42,7 @@ class Analyze:
         # Load model from file
         self.binary_model = tf.keras.models.load_model(model_path)
 
-        if not(os.path.exists('flask_app/warbler.h5')):
+        if not(os.path.exists(os.path.join(models_dir, 'warbler.h5'))):
             model_url = 'https://drive.google.com/uc?export=download&id=1cFwNVpCaMacM9fDv_2qIEOB70XkwKfKs'
             model_path = os.path.join(models_dir, 'warbler.h5')
             # Download model file
