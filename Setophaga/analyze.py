@@ -10,7 +10,7 @@ import requests
 from pydub import AudioSegment
 import numpy as np
 import pandas as pd
-
+import pkg_resources
 
 class Analyze:
     def __init__(self, filename, sound_info=None, frame_rate=None, audio_length=None, prediction=None):
@@ -28,10 +28,13 @@ class Analyze:
 
     def load_models(self):
         print("Loading models...")
-        binary_model_path = 'Setophaga/models/binary.h5'
+        package_path = pkg_resources.resource_filename(__name__, '')
+        models_dir = os.path.join(package_path, 'models')
+
+        binary_model_path = os.path.join(models_dir, 'binary.h5')
         self.binary_model = tf.keras.models.load_model(binary_model_path)
 
-        warbler_model_path = 'Setophaga/models/warbler.h5'
+        warbler_model_path = os.path.join(models_dir, 'warbler.h5')
         self.warbler_model = tf.keras.models.load_model(warbler_model_path)
 
     def get_wav_info(self):
@@ -48,7 +51,7 @@ class Analyze:
             start_time = i * 1000
             end_time = (i + 1) * 1000
             samples = audio_file[start_time:end_time]
-            
+
             plt.figure(figsize=(6.4, 4.8))
             plt.specgram(samples, Fs=self.frame_rate, cmap='gray_r', scale='dB', mode='magnitude')
             plt.axis('off')
