@@ -11,16 +11,15 @@ def download_model(model_url, model_path):
 
 def load_models():
     binary_model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
-    binary_model_path = 'flask_app/binary.h5'
+    binary_model_path = os.path.join('Setophaga', 'models', 'binary.h5')
     download_model(binary_model_url, binary_model_path)
 
     warbler_model_url = 'https://drive.google.com/uc?export=download&id=1cFwNVpCaMacM9fDv_2qIEOB70XkwKfKs'
-    warbler_model_path = 'flask_app/warbler.h5'
+    warbler_model_path = os.path.join('Setophaga', 'models', 'warbler.h5')
     download_model(warbler_model_url, warbler_model_path)
 
 # Download and load models
 load_models()
-
 
 # Define other package details
 setup(
