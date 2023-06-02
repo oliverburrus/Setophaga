@@ -53,12 +53,10 @@ class Analyze:
         self.warbler_model = tf.keras.models.load_model(model_path)
 
     def get_wav_info(self):
-        wav = wave.open(self.filename, 'r')
-        frames = wav.readframes(-1)
-        self.sound_info = pylab.frombuffer(frames, 'int16')
-        self.frame_rate = wav.getframerate()
-        self.audio_length = len(self.sound_info) / self.frame_rate
-        wav.close()
+        with wave.open(self.filename, 'rb') as wav:
+            self.frame_rate = wav.getframerate()
+            self.audio_length = wav.getnframes() / float(self.frame_rate)
+            self.sound_info = np.frombuffer(wav.readframes(wav.getnframes()), dtype=np.int16)
 
     def analyze(self):
         audio_file = AudioSegment.from_file(self.filename)
