@@ -11,6 +11,7 @@ from pydub import AudioSegment
 import numpy as np
 import pandas as pd
 import pkg_resources
+import urllib
 
 class Analyze:
     def __init__(self, filename, sound_info=None, frame_rate=None, audio_length=None, prediction=None):
@@ -22,20 +23,33 @@ class Analyze:
         self.binary_model = None
         self.warbler_model = None
         self.confidence = 0.7
-        self.load_models()
+        self.get_models()
         self.get_wav_info()
         self.analyze()
 
-    def load_models(self):
-        print("Loading models...")
+    def get_models(self):
+        print("Getting models ready...")
         package_path = pkg_resources.resource_filename(__name__, '')
         models_dir = os.path.join(package_path, 'models')
+        if not(os.path.exists('flask_app/binary.h5')):
+            model_url = 'https://drive.google.com/uc?export=download&id=14igHOLLg74WiM-eTHPVA9sKs_hAmiuVr'
+            model_path = os.path.join(models_dir, 'binary.h5')
+            # Download model file
+            urllib.request.urlretrieve(model_url, model_path)
+        else:
+            model_path = os.path.join(models_dir, 'binary.h5')
+        # Load model from file
+        self.binary_model = tf.keras.models.load_model(model_path)
 
-        binary_model_path = os.path.join(models_dir, 'binary.h5')
-        self.binary_model = tf.keras.models.load_model(binary_model_path)
-
-        warbler_model_path = os.path.join(models_dir, 'warbler.h5')
-        self.warbler_model = tf.keras.models.load_model(warbler_model_path)
+        if not(os.path.exists('flask_app/warbler.h5')):
+            model_url = 'https://drive.google.com/uc?export=download&id=1cFwNVpCaMacM9fDv_2qIEOB70XkwKfKs'
+            model_path = os.path.join(models_dir, 'warbler.h5')
+            # Download model file
+            urllib.request.urlretrieve(model_url, model_path)
+        else:
+            model_path = os.path.join(models_dir, 'warbler.h5')
+        # Load model from file
+        self.warbler_model = tf.keras.models.load_model(model_path)
 
     def get_wav_info(self):
         wav = wave.open(self.filename, 'r')
