@@ -28,10 +28,10 @@ class Analyze:
 
     def load_models(self):
         print("Loading models...")
-        binary_model_path = 'models/binary.h5'
+        binary_model_path = 'Setophaga/models/binary.h5'
         self.binary_model = tf.keras.models.load_model(binary_model_path)
 
-        warbler_model_path = 'models/warbler.h5'
+        warbler_model_path = 'Setophaga/models/warbler.h5'
         self.warbler_model = tf.keras.models.load_model(warbler_model_path)
 
     def get_wav_info(self):
